@@ -1,0 +1,4 @@
+{
+  "*.ts": ["prettier --write", "eslint --fix --max-warnings 0"],
+  "*.tsx": ["eslint", "prettier --write", "eslint --fix --max-warnings 0"]
+}
