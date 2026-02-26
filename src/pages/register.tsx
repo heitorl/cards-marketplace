@@ -2,36 +2,42 @@ import { Input } from "../components/Input"
 import { Button } from "../components/Button"
 import { AuthHeader } from "../components/AuthHeader"
 import { Link } from "react-router"
-import { loginSchema, type LoginFormData } from "../schemas/AuthSchemas"
 import { useForm } from "react-hook-form"
+import { registerSchema, type RegisterFormData } from "../schemas/auth-schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-const Login = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: RegisterFormData) => {
     console.log(data)
   }
 
   return (
     <>
-      <div className="flex flex-col items-center gap-4">
-        <AuthHeader
-          title="Bem-vindo de volta"
-          subtitle="Acesse sua conta para continuar suas negociações."
-        />
-      </div>
+      <AuthHeader
+        title="Crie sua conta"
+        subtitle="Comece a trocar cartas e expandir sua coleção hoje mesmo."
+      />
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="pt-2 flex flex-col gap-4"
+        className="pt-4 flex flex-col gap-4"
       >
+        <Input
+          label="Nome"
+          placeholder="John Doe"
+          {...register("name")}
+          errorMessage={errors.name?.message}
+          variant={errors.name ? "error" : "default"}
+        />
+
         <Input
           label="Email"
           placeholder="you@email.com"
@@ -39,6 +45,7 @@ const Login = () => {
           errorMessage={errors.email?.message}
           variant={errors.email ? "error" : "default"}
         />
+
         <Input
           label="Senha"
           type="password"
@@ -48,19 +55,28 @@ const Login = () => {
           variant={errors.password ? "error" : "default"}
         />
 
-        <Button type="submit">Entrar</Button>
+        <Input
+          label="Confirmar Senha"
+          type="password"
+          placeholder="******"
+          {...register("confirmPassword")}
+          errorMessage={errors.confirmPassword?.message}
+          variant={errors.confirmPassword ? "error" : "default"}
+        />
+        <Button type="submit">Criar conta</Button>
       </form>
+
       <span className="text-center text-muted-foreground">
-        Não tem uma conta?{" "}
+        Já tem uma conta?{" "}
         <Link
-          to="/register"
+          to="/login"
           className="text-primary font-semibold hover:opacity-80 transition"
         >
-          Registre
+          Login
         </Link>
       </span>
     </>
   )
 }
 
-export default Login
+export default Register

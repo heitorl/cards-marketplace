@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router"
-import { AuthLayout } from "../layouts/AuthLayout"
-import Login from "../pages/Login"
-import Register from "../pages/Register"
+import { AuthLayout } from "../layouts/auth-layout"
+import Login from "../pages/login"
+import Register from "../pages/register"
 
 export const AppRoutes = () => {
   return (
