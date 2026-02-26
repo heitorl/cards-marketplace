@@ -2,8 +2,23 @@ import { Input } from "../components/Input"
 import { Button } from "../components/Button"
 import { AuthHeader } from "../components/AuthHeader"
 import { Link } from "react-router"
+import { loginSchema, type LoginFormData } from "../schemas/AuthSchemas"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  })
+
+  const onSubmit = async (data: LoginFormData) => {
+    console.log(data)
+  }
+
   return (
     <>
       <div className="flex flex-col items-center gap-4">
@@ -13,12 +28,28 @@ const Login = () => {
         />
       </div>
 
-      <div className="pt-2 flex flex-col gap-4">
-        <Input label="Email" placeholder="you@email.com" />
-        <Input label="Password" placeholder="******" />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="pt-2 flex flex-col gap-4"
+      >
+        <Input
+          label="Email"
+          placeholder="you@email.com"
+          {...register("email")}
+          errorMessage={errors.email?.message}
+          variant={errors.email ? "error" : "default"}
+        />
+        <Input
+          label="Senha"
+          type="password"
+          placeholder="******"
+          {...register("password")}
+          errorMessage={errors.password?.message}
+          variant={errors.password ? "error" : "default"}
+        />
 
-        <Button>Entrar</Button>
-      </div>
+        <Button type="submit">Entrar</Button>
+      </form>
       <span className="text-center text-muted-foreground">
         Não tem uma conta?{" "}
         <Link
