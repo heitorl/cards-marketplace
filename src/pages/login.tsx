@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useLogin } from "../hooks/use-login"
 
 const Login = () => {
-  const { mutateAsync } = useLogin()
+  const { mutateAsync, isPending } = useLogin()
 
   const {
     register,
@@ -51,7 +51,9 @@ const Login = () => {
           variant={errors.password ? "error" : "default"}
         />
 
-        <Button type="submit">Entrar</Button>
+        <Button type="submit" disabled={isPending} isLoading={isPending}>
+          {isPending ? "Entrando..." : "Entrar"}
+        </Button>
       </form>
       <span className="text-center text-muted-foreground">
         Não tem uma conta?{" "}

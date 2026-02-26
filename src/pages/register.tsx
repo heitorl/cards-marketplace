@@ -5,8 +5,10 @@ import { Link } from "react-router"
 import { useForm } from "react-hook-form"
 import { registerSchema, type RegisterFormData } from "../schemas/auth-schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRegister } from "../hooks/use-register"
 
 const Register = () => {
+  const { mutateAsync, isPending } = useRegister()
   const {
     register,
     handleSubmit,
@@ -16,7 +18,11 @@ const Register = () => {
   })
 
   const onSubmit = async (data: RegisterFormData) => {
-    console.log(data)
+    await mutateAsync({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    })
   }
 
   return (
@@ -63,7 +69,9 @@ const Register = () => {
           errorMessage={errors.confirmPassword?.message}
           variant={errors.confirmPassword ? "error" : "default"}
         />
-        <Button type="submit">Criar conta</Button>
+        <Button type="submit" disabled={isPending} isLoading={isPending}>
+          {isPending ? "Criando..." : "Criar conta"}
+        </Button>
       </form>
 
       <span className="text-center text-muted-foreground">
