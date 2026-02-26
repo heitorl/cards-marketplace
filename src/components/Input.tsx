@@ -3,6 +3,7 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react"
 type InputVariant = "default" | "error"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
   variant?: InputVariant
   errorMessage?: string
   leftIcon?: ReactNode
@@ -12,6 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
+      label,
       variant = "default",
       errorMessage,
       leftIcon,
@@ -25,9 +27,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       w-full
       rounded-md
       border
-      bg-white
-      px-3
-      py-2
+      bg-input-background
+      px-4
+      py-3
       text-sm
       outline-none
       transition
@@ -50,6 +52,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="w-full space-y-1">
+        {label && (
+          <label className="text-sm font-medium text-[#111827]">{label}</label>
+        )}
+
         <div className="relative flex items-center">
           {leftIcon && (
             <div className="absolute left-3 text-muted-foreground">

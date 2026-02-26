@@ -24,4 +24,11 @@
   .bg-button-gradient {
     background: var(--color-button-gradient);
   }
+
+  .text-gradient {
+    background: var(--color-button-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
 }
