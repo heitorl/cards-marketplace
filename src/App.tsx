@@ -3,7 +3,7 @@ import { AppRoutes } from "./routes/app-routes"
 
 function App() {
   return (
-    <div className="min-h-screen bg-app-gradient flex justify-center items-center">
+    <div className="min-h-dvh bg-app-gradient w-full">
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>

@@ -3,8 +3,10 @@ import { AuthContainer } from "../components/AuthContainer"
 
 export function AuthLayout() {
   return (
-    <AuthContainer>
-      <Outlet />
-    </AuthContainer>
+    <div className="flex justify-center items-center">
+      <AuthContainer>
+        <Outlet />
+      </AuthContainer>
+    </div>
   )
 }

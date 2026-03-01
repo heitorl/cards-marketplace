@@ -16,6 +16,23 @@
   --color-semantic-error: #dc2626;
 }
 
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-app-gradient);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
 @layer utilities {
   .bg-app-gradient {
     background: var(--color-app-gradient);
