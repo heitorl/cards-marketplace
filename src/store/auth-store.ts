@@ -1,6 +1,7 @@
 import { create } from "zustand"
 import type { User } from "../types/auth-types"
 import { persist } from "zustand/middleware"
+import { giveStarterPack } from "../services/starter-pack-service"
 
 type AuthStore = {
   user: User | null
@@ -15,11 +16,15 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       token: null,
 
-      setAuth: (user, token) =>
+      setAuth: async (user, token) => {
         set({
           user,
           token,
-        }),
+        })
+
+        // ⭐ executa starter pack após login
+        await giveStarterPack()
+      },
 
       signOut: () =>
         set({

@@ -1,7 +1,9 @@
 import { LogOut, Sparkles } from "lucide-react"
 import { Button } from "./Button"
+import { useLogout } from "../hooks/use-logout"
 
 export const Header = () => {
+  const { logout } = useLogout()
   return (
     <div className="w-full bg-card px-4 sm:px-6 md:px-12 lg:px-24 xl:px-42 py-4 sm:py-6">
       <div className="flex justify-between items-center">
@@ -16,7 +18,7 @@ export const Header = () => {
         </div>
 
         <div>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={logout}>
             <LogOut size={20} />
             <span className="hidden sm:inline">Logout</span>
           </Button>

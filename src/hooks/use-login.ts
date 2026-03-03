@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useAuthStore } from "../store/auth-store"
 import type { LoginRequestData, LoginResponse } from "../types/auth-types"
 import { api } from "../api"
@@ -15,6 +15,7 @@ type ApiError = {
 export const useLogin = () => {
   const setAuth = useAuthStore((state) => state.setAuth)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   return useMutation<LoginResponse, AxiosError<ApiError>, LoginRequestData>({
     mutationFn: async (data) => {
@@ -22,8 +23,12 @@ export const useLogin = () => {
       return response.data
     },
 
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setAuth(data.user, data.token)
+
+      await queryClient.invalidateQueries({
+        queryKey: ["my-cards"],
+      })
 
       toast.success("Login realizado com sucesso 🎉")
 

@@ -1,11 +1,11 @@
 import { Layers, PlusIcon, Repeat } from "lucide-react"
 import { Button } from "../Button"
 import { SectionHeader } from "./section-header"
-import { useCards } from "../../hooks/use-cards"
 import { CardItem } from "./card-item"
+import { useMyCards } from "../../hooks/use-cards"
 
 export const MyCollection = () => {
-  const { data: cards, isLoading } = useCards()
+  const { data: cards, isLoading } = useMyCards()
 
   return (
     <div className="flex flex-col gap-2 pt-4">

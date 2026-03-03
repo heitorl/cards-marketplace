@@ -6,7 +6,7 @@ type Props = {
 
 export const CardItem = ({ card }: Props) => {
   return (
-    <div className="bg-card rounded-xl border p-3 w-full sm:w-55">
+    <div className="bg-card rounded-xl border p-3 w-full sm:w-58">
       <img
         src={card.imageUrl}
         alt={card.name}
