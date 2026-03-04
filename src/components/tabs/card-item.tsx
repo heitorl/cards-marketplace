@@ -12,7 +12,7 @@ export const CardItem = ({ card, selected, onAction, actionLabel }: Props) => {
   return (
     <div
       className={`
-        bg-card rounded-xl p-3 w-full sm:w-58 cursor-pointer
+        bg-card rounded-xl p-3 w-full sm:w-62 cursor-pointer
         transition-all duration-200 border
         ${
           selected

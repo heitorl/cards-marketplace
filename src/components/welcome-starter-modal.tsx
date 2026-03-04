@@ -21,7 +21,7 @@ export const WelcomeStarterModal = ({ open, onClose }: Props) => {
         </h2>
 
         <p className="text-muted-foreground">
-          Você recebeu um <strong>Starter Pack</strong> com 3 cartas aleatórias
+          Você recebeu um <strong>Starter Pack</strong> com 10 cartas aleatórias
           para começar sua coleção!
         </p>
 

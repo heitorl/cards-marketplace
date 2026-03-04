@@ -16,10 +16,10 @@ export const giveStarterPack = async () => {
 
     const cardsResponse = await getCards({
       page: 1,
-      rpp: 50,
+      rpp: 80,
     })
 
-    const starterCards = pickRandom(cardsResponse.list, 3)
+    const starterCards = pickRandom(cardsResponse.list, 10)
 
     await api.post("/me/cards", {
       cardIds: starterCards.map((c) => c.id),

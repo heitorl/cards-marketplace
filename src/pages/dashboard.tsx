@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Header } from "../components/header"
 import { Explore } from "../components/tabs/explore"
-import { History } from "../components/tabs/history"
+import { Feed } from "../components/tabs/feed"
 import { MyCollection } from "../components/tabs/my-collection"
 import { Trade } from "../components/tabs/trade"
 import { DashboardMenu } from "../components/dashboard-menu"
@@ -25,13 +25,13 @@ const Dashboard = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "collection":
-        return <MyCollection />
+        return <MyCollection setActiveTab={setActiveTab} />
       case "explore":
-        return <Explore />
+        return <Explore setActiveTab={setActiveTab} />
       case "trade":
-        return <Trade />
+        return <Trade setActiveTab={setActiveTab} />
       case "feed":
-        return <History />
+        return <Feed />
       default:
         return null
     }

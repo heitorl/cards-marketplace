@@ -6,8 +6,14 @@ import { useInfiniteScroll } from "../../hooks/use-infinite-scroll"
 import { useState } from "react"
 import { useCards } from "../../hooks/use-cards"
 import { useTradeStore } from "../../store/trade-store"
+import type { TabType } from "../../pages/dashboard"
+import toast from "react-hot-toast"
 
-export const Explore = () => {
+type ExploreProps = {
+  setActiveTab: (tab: TabType) => void
+}
+
+export const Explore = ({ setActiveTab }: ExploreProps) => {
   const [search, setSearch] = useState("")
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCards()
 
@@ -46,6 +52,8 @@ export const Explore = () => {
             card={card}
             onAction={() => {
               setDesiredCard(card)
+              toast.success("Carta desejada selecionada")
+              setActiveTab("trade")
             }}
             actionLabel="Pedir troca"
           />
