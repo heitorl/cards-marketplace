@@ -8,10 +8,10 @@ export const useLogout = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  const logout = async () => {
+  const logout = () => {
     signOut()
 
-    await queryClient.clear()
+    queryClient.clear()
 
     toast.success("Logout realizado")
 

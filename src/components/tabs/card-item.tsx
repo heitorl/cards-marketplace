@@ -1,12 +1,26 @@
 import type { Card } from "../../types/card-type"
+import { Button } from "../Button"
 
 type Props = {
   card: Card
+  selected?: boolean
+  onAction?: () => void
+  actionLabel?: string
 }
 
-export const CardItem = ({ card }: Props) => {
+export const CardItem = ({ card, selected, onAction, actionLabel }: Props) => {
   return (
-    <div className="bg-card rounded-xl border p-3 w-full sm:w-58">
+    <div
+      className={`
+        bg-card rounded-xl p-3 w-full sm:w-58 cursor-pointer
+        transition-all duration-200 border
+        ${
+          selected
+            ? "border-primary border-2 ring-1 ring-primary scale-[1.02]"
+            : "border-border hover:border-primary/40"
+        }
+      `}
+    >
       <img
         src={card.imageUrl}
         alt={card.name}
@@ -18,6 +32,14 @@ export const CardItem = ({ card }: Props) => {
       <p className="text-sm text-muted-foreground line-clamp-2">
         {card.description}
       </p>
+
+      {onAction && (
+        <div className="mt-3">
+          <Button onClick={onAction} variant="card">
+            {actionLabel}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

@@ -7,12 +7,14 @@ export const useStarterPack = () => {
   const executeStarterPack = async () => {
     const received = await giveStarterPack()
 
-    // se ganhou cartas → atualiza cache
     if (received) {
       await queryClient.invalidateQueries({
         queryKey: ["my-cards"],
+        refetchType: "active",
       })
     }
+
+    return received
   }
 
   return { executeStarterPack }

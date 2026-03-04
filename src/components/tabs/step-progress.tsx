@@ -25,30 +25,42 @@ export const StepProgress = ({ steps, currentStep }: Props) => {
                 <div
                   className={`
                     w-10 h-10 rounded-full flex items-center justify-center
-                    font-semibold text-sm transition-all
+                    font-semibold text-sm transition-all duration-300
                     ${
-                      isActive
-                        ? "bg-button-gradient text-white"
-                        : isCompleted
-                          ? "bg-primary text-white"
+                      isCompleted
+                        ? "bg-primary text-white"
+                        : isActive
+                          ? "bg-button-gradient text-white scale-110"
                           : "bg-input-background text-muted-foreground"
                     }
                   `}
                 >
-                  {step.id}
+                  {isCompleted ? "✓" : step.id}
                 </div>
 
                 <span
-                  className={`mt-2 text-sm whitespace-nowrap ${
-                    isActive ? "text-foreground" : "text-muted-foreground"
-                  }`}
+                  className={`mt-2 text-sm whitespace-nowrap transition-colors
+                    ${
+                      isActive || isCompleted
+                        ? "text-foreground"
+                        : "text-muted-foreground"
+                    }`}
                 >
                   {step.label}
                 </span>
               </div>
 
               {index < steps.length - 1 && (
-                <div className="flex-1 h-0.5 mx-6 bg-input-background" />
+                <div
+                  className={`
+                    flex-1 h-0.5 mx-6 transition-all duration-500
+                    ${
+                      step.id < currentStep
+                        ? "bg-primary"
+                        : "bg-input-background"
+                    }
+                  `}
+                />
               )}
             </div>
           )

@@ -3,7 +3,7 @@ import { LoaderCircle } from "lucide-react"
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isLoading?: boolean
-  variant?: "primary" | "secondary"
+  variant?: "primary" | "secondary" | "card"
 }
 
 export const Button = ({
@@ -11,17 +11,25 @@ export const Button = ({
   isLoading = false,
   disabled,
   variant = "primary",
+  className = "",
   ...props
 }: ButtonProps) => {
   const variants = {
     primary: `
       bg-button-gradient
       text-white
+      py-2.5 px-4
     `,
     secondary: `
       bg-white
       text-black
       border border-gray-300
+      py-2.5 px-4
+    `,
+    card: `
+      bg-button-gradient
+      text-white
+      py-1.5 px-0      
     `,
   }
 
@@ -36,8 +44,6 @@ export const Button = ({
         items-center
         justify-center
         gap-2
-        py-2.5
-        px-4
         cursor-pointer
         transition
         ${variants[variant]}
@@ -46,6 +52,7 @@ export const Button = ({
             ? "opacity-60 cursor-not-allowed"
             : "hover:opacity-90"
         }
+        ${className}
       `}
     >
       {isLoading && (

@@ -2,7 +2,13 @@ import { api } from "../api"
 import { pickRandom } from "../utils/pickRandom"
 import { getCards, getMyCards } from "./cards-service"
 
+let starterPackRunning = false
+
 export const giveStarterPack = async () => {
+  if (starterPackRunning) return false
+
+  starterPackRunning = true
+
   try {
     const myCards = await getMyCards()
 
@@ -13,8 +19,6 @@ export const giveStarterPack = async () => {
       rpp: 50,
     })
 
-    if (!cardsResponse.list.length) return false
-
     const starterCards = pickRandom(cardsResponse.list, 3)
 
     await api.post("/me/cards", {
@@ -22,8 +26,7 @@ export const giveStarterPack = async () => {
     })
 
     return true
-  } catch (error) {
-    console.error("Starter pack error:", error)
-    return false
+  } finally {
+    starterPackRunning = false
   }
 }

@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import type { User } from "../types/auth-types"
 import { persist } from "zustand/middleware"
-import { giveStarterPack } from "../services/starter-pack-service"
+import { getStarterKey } from "../utils/get-start-key"
 
 type AuthStore = {
   user: User | null
@@ -12,7 +12,7 @@ type AuthStore = {
 
 export const useAuthStore = create<AuthStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       token: null,
 
@@ -21,16 +21,22 @@ export const useAuthStore = create<AuthStore>()(
           user,
           token,
         })
-
-        // ⭐ executa starter pack após login
-        await giveStarterPack()
       },
 
-      signOut: () =>
+      signOut: () => {
+        const user = get().user
+
+        if (user) {
+          const key = getStarterKey(user.id)
+
+          localStorage.removeItem(key)
+        }
+
         set({
           user: null,
           token: null,
-        }),
+        })
+      },
     }),
     {
       name: "auth-storage",
