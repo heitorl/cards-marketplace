@@ -162,3 +162,19 @@ src
 - store → gerenciamento de estado global
 
 - types → tipagens TypeScript
+
+## Cache
+
+#### Foi implementado um mecanismo de cache utilizando React Query.
+
+A listagem de cartas utiliza paginação com infinite query, onde cada página carregada é armazenada em cache automaticamente pela biblioteca.
+
+Isso permite que:
+
+- cartas já carregadas não precisem ser buscadas novamente na API
+
+- a navegação entre abas não gere novas requisições
+
+- a busca de cartas seja realizada localmente sobre os dados já carregados
+
+Dessa forma a aplicação reduz chamadas desnecessárias à API e melhora a performance da interface.

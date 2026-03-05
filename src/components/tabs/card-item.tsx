@@ -13,7 +13,7 @@ export const CardItem = ({ card, selected, onAction, actionLabel }: Props) => {
     <div
       className={`
         bg-card rounded-xl p-3 cursor-pointer
-        transition-all duration-200 border
+        transition-all duration-200 border 
         ${
           selected
             ? "border-primary border-2 ring-1 ring-primary scale-[1.02]"
@@ -21,11 +21,13 @@ export const CardItem = ({ card, selected, onAction, actionLabel }: Props) => {
         }
       `}
     >
-      <img
-        src={card.imageUrl}
-        alt={card.name}
-        className="w-full h-56 object-cover rounded-md"
-      />
+      <div className="w-full aspect-3/4 overflow-hidden rounded-xl">
+        <img
+          src={card.imageUrl}
+          alt={card.name}
+          className="w-full h-full object-cover rounded-md"
+        />
+      </div>
 
       <h3 className="mt-2 font-semibold line-clamp-1">{card.name}</h3>
 

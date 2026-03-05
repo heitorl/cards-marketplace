@@ -1,9 +1,7 @@
-import { Compass, LoaderCircle, Search } from "lucide-react"
+import { Compass, LoaderCircle } from "lucide-react"
 import { SectionHeader } from "./section-header"
 import { CardItem } from "./card-item"
-import { Input } from "../Input"
 import { useInfiniteScroll } from "../../hooks/use-infinite-scroll"
-import { useState } from "react"
 import { useCards } from "../../hooks/use-cards"
 import { useTradeStore } from "../../store/trade-store"
 import type { TabType } from "../../pages/dashboard"
@@ -14,7 +12,6 @@ type ExploreProps = {
 }
 
 export const Explore = ({ setActiveTab }: ExploreProps) => {
-  const [search, setSearch] = useState("")
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useCards()
 
@@ -44,17 +41,7 @@ export const Explore = ({ setActiveTab }: ExploreProps) => {
         description="Descubra e adicione cartas á sua coleção"
       />
 
-      <div className="w-full bg-card p-4 rounded-2xl">
-        <Input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          leftIcon={<Search />}
-          placeholder="Busque por uma carta"
-          className=" bg-transparent border-none"
-        />
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 pt-4">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 pt-4">
         {cards.map((card) => (
           <CardItem
             key={card.id}

@@ -3,7 +3,7 @@ import { AuthContainer } from "../components/AuthContainer"
 
 export function AuthLayout() {
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className="flex justify-center items-center h-full px-2.5">
       <AuthContainer>
         <Outlet />
       </AuthContainer>
