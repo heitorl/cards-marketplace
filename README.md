@@ -6,6 +6,12 @@ O sistema permite que usuários registrem suas cartas, publiquem propostas de tr
 
 Este projeto foi desenvolvido como parte de um teste técnico Front-End, consumindo uma API pública fornecida no desafio.
 
+## 🚀 Aplicação online
+
+### Acesse a aplicação publicada:
+
+[Clique aqui para acessar o Cards Marketplace](https://cards-marketplace-eight.vercel.app/)
+
 ## 📦 Regras de Produto
 
 Durante o desenvolvimento da aplicação, foi definida uma regra de produto para tornar o marketplace de trocas funcional e significativo para os usuários.
