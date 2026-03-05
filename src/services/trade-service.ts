@@ -72,3 +72,7 @@ export const confirmTrade = async (cardIds: string[]) => {
     cardIds,
   })
 }
+
+export const deleteTrade = async (tradeId: string) => {
+  await api.delete(`/trades/${tradeId}`)
+}

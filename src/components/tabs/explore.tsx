@@ -1,4 +1,4 @@
-import { Compass, Search } from "lucide-react"
+import { Compass, LoaderCircle, Search } from "lucide-react"
 import { SectionHeader } from "./section-header"
 import { CardItem } from "./card-item"
 import { Input } from "../Input"
@@ -15,7 +15,8 @@ type ExploreProps = {
 
 export const Explore = ({ setActiveTab }: ExploreProps) => {
   const [search, setSearch] = useState("")
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCards()
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useCards()
 
   const setDesiredCard = useTradeStore((s) => s.setDesiredCard)
 
@@ -26,6 +27,14 @@ export const Explore = ({ setActiveTab }: ExploreProps) => {
       fetchNextPage()
     }
   })
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <LoaderCircle className="animate-spin text-primary" size={48} />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-2 pt-4">
@@ -61,9 +70,7 @@ export const Explore = ({ setActiveTab }: ExploreProps) => {
       </div>
       <div ref={loadMoreRef} className="h-10 flex items-center justify-center">
         {isFetchingNextPage && (
-          <div className="col-span-full text-center py-4">
-            Carregando mais cartas...
-          </div>
+          <LoaderCircle className="animate-spin text-primary" size={28} />
         )}
       </div>
     </div>

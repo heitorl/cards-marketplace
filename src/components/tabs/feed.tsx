@@ -1,20 +1,37 @@
-import { Radio, Repeat, User } from "lucide-react"
+import { LoaderCircle, Radio, Repeat, User } from "lucide-react"
 import { SectionHeader } from "./section-header"
 import { Button } from "../Button"
 import { useTrades } from "../../hooks/use-trades"
 import { FeedCard } from "./feed-card"
 import { useMyCards } from "../../hooks/use-cards"
 import { useConfirmTrade } from "../../hooks/use-confirm-trade"
-// import { FeedCard } from "./feed-card"
+import { useState } from "react"
+import { useAuthStore } from "../../store/auth-store"
 
 export const Feed = () => {
   const { data, isLoading } = useTrades()
   const { data: myCards = [] } = useMyCards()
   const { mutateAsync: confirmTrade } = useConfirmTrade()
+  const userId = useAuthStore((state) => state.user?.id)
+  const [filter, setFilter] = useState<"market" | "mine">("market")
+
+  const filteredTrades = data?.list?.filter((trade) => {
+    if (!userId) return false
+
+    if (filter === "mine") {
+      return trade.userId === userId
+    }
+
+    return trade.userId !== userId
+  })
 
   const userCardsIds = new Set(myCards.map((c) => c.id))
   if (isLoading) {
-    return <p>Carregando trades...</p>
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <LoaderCircle className="animate-spin text-primary" size={48} />
+      </div>
+    )
   }
   return (
     <div className="flex flex-col gap-2 pt-4">
@@ -23,7 +40,25 @@ export const Feed = () => {
         title="Feed de Trocas"
         description="Marketplace de trocas aberto - veja todas as propostas publicadas"
       />
-      {data?.list?.map((trade) => {
+
+      <div className="flex flex-col w-60 sm:flex-row gap-2 pt-2 sm:w-full sm:max-w-md">
+        <Button
+          variant={filter === "market" ? "primary" : "secondary"}
+          onClick={() => setFilter("market")}
+        >
+          Marketplace
+        </Button>
+
+        <Button
+          variant={filter === "mine" ? "primary" : "secondary"}
+          onClick={() => setFilter("mine")}
+        >
+          Minhas Trocas
+        </Button>
+      </div>
+
+      {filteredTrades?.map((trade) => {
+        const isOwner = trade.userId === userId
         const offering = trade.tradeCards.filter((tc) => tc.type === "OFFERING")
 
         const receiving = trade.tradeCards.filter(
@@ -31,13 +66,12 @@ export const Feed = () => {
         )
 
         const handleConfirm = async () => {
-          const cardIds = receiving.map((c) => c.cardId)
-
-          await confirmTrade(cardIds)
+          const cardToReceive = offering.map((item) => item.card.id)
+          await confirmTrade(cardToReceive)
         }
 
-        const canTrade = receiving.every((card) =>
-          userCardsIds.has(card.cardId)
+        const canTrade = receiving.every((item) =>
+          userCardsIds.has(item.card.id)
         )
         return (
           <div key={trade.id} className="w-full bg-card rounded-xl mt-4">
@@ -85,13 +119,15 @@ export const Feed = () => {
               </div>
             </div>
 
-            <div className="w-full px-4 py-4">
-              <Button disabled={!canTrade} onClick={handleConfirm}>
-                {canTrade
-                  ? "Confirmar troca"
-                  : "Você não possui as cartas necessárias"}
-              </Button>
-            </div>
+            {!isOwner && (
+              <div className="w-full px-4 py-4">
+                <Button disabled={!canTrade} onClick={handleConfirm}>
+                  {canTrade
+                    ? "Confirmar troca"
+                    : "Você não possui as cartas necessárias"}
+                </Button>
+              </div>
+            )}
           </div>
         )
       })}

@@ -12,11 +12,6 @@ export const useMyCards = () => {
   })
 }
 
-// type Props = {
-//   page?: number
-//   rpp?: number
-// }
-
 export const useCards = (rpp = 20) => {
   return useInfiniteQuery<GetCardsResponse>({
     queryKey: ["cards", rpp],

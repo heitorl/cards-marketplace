@@ -46,6 +46,7 @@ export const Trade = ({ setActiveTab }: TradeProps) => {
       toast.success("Proposta de troca enviada com sucesso 🤝")
 
       resetTrade()
+      setActiveTab("feed")
     } catch (error) {
       console.log(error)
       toast.error("Erro ao criar troca")
@@ -63,22 +64,26 @@ export const Trade = ({ setActiveTab }: TradeProps) => {
       <StepProgress steps={steps} currentStep={currentStep} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
-        <div className="bg-card rounded-xl p-4">
-          <div className="flex gap-1.5 items-center mb-4">
-            <Gem size={18} className="text-primary" />
-            <h3 className="font-semibold text-lg">Sua carta</h3>
+        <div className="bg-card rounded-xl p-4 flex flex-col">
+          <div className="flex gap-1.5">
+            <Gem size={18} className="text-primary mt-1" />
+            <div className="flex flex-col">
+              <h3 className="font-semibold text-lg">Sua carta</h3>
+              <p className="text-muted-foreground">
+                Escolha uma carta da sua coleção
+              </p>
+            </div>
           </div>
 
           {offeredCard ? (
             <div className="w-full flex justify-center">
-              <CardItem card={offeredCard} />
+              <div className="max-w-65">
+                <CardItem card={offeredCard} />
+              </div>
             </div>
           ) : (
             <>
-              <p className="text-muted-foreground">
-                Escolha uma carta da sua coleção
-              </p>
-              <div className="flex justify-center items-center p-4">
+              <div className="flex justify-center items-center p-4 h-full">
                 <TextSelectIcon
                   size={52}
                   className="text-primary cursor-pointer"
@@ -92,22 +97,26 @@ export const Trade = ({ setActiveTab }: TradeProps) => {
         <div className="w-full flex justify-center items-center">
           <Repeat size={60} className="text-primary/60" />
         </div>
-        <div className="bg-card rounded-xl p-4">
-          <div className="flex gap-1.5 items-center mb-4">
-            <Crosshair size={18} className="text-primary" />
-            <h3 className=" font-semibold text-lg">Carta desejada</h3>
+        <div className="bg-card rounded-xl p-4 flex flex-col">
+          <div className="flex gap-1.5 items-start mb-4">
+            <Crosshair size={18} className="text-primary mt-1" />
+            <div className="flex flex-col">
+              <h3 className=" font-semibold text-lg">Carta desejada</h3>
+              <p className="text-muted-foreground mt-0">
+                Escolha uma carta no explorar
+              </p>
+            </div>
           </div>
 
           {desiredCard ? (
             <div className="w-full flex justify-center">
-              <CardItem card={desiredCard} />
+              <div className="max-w-65">
+                <CardItem card={desiredCard} />
+              </div>
             </div>
           ) : (
             <>
-              <p className="text-muted-foreground mt-0">
-                Escolha uma carta no explorar
-              </p>
-              <div className="flex justify-center items-center p-4">
+              <div className="flex justify-center items-center p-4 h-full">
                 <TextSelectIcon
                   size={52}
                   className="text-primary cursor-pointer"
@@ -124,7 +133,7 @@ export const Trade = ({ setActiveTab }: TradeProps) => {
             isLoading={isPending}
             onClick={handleConfirmTrade}
           >
-            Confirmar troca
+            Solicitar troca
           </Button>
         </div>
       </div>
