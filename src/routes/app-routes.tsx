@@ -8,10 +8,10 @@ import Dashboard from "../pages/dashboard"
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Navigate to="/" replace />} />
       <Route element={<PublicRoutes />}>
         <Route element={<AuthLayout />}>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
       </Route>

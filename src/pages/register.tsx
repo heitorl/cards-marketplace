@@ -77,7 +77,7 @@ const Register = () => {
       <span className="text-center text-muted-foreground">
         Já tem uma conta?{" "}
         <Link
-          to="/login"
+          to="/"
           className="text-primary font-semibold hover:opacity-80 transition"
         >
           Login
